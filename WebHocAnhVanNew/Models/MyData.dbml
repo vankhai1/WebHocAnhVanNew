@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="WebHocAV" Class="MyDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=WIFE\CONGKHAI;Initial Catalog=WebHocAV;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.NoiDungKH" Member="NoiDungKHs">
+    <Type Name="NoiDungKH">
+      <Column Name="IdBai" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NoiDung" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdKhoaHoc" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="KhoaHoc_NoiDungKH" Member="KhoaHoc" ThisKey="IdKhoaHoc" OtherKey="IdKhoaHoc" Type="KhoaHoc" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LoaiTK" Member="LoaiTKs">
+    <Type Name="LoaiTK">
+      <Column Name="IdLoai" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LoaiTK" Member="LoaiTK1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="LoaiTK_AspNetUser" Member="AspNetUsers" ThisKey="IdLoai" OtherKey="IdLoai" Type="AspNetUser" />
+    </Type>
+  </Table>
+  <Table Name="dbo.KhoaHocs" Member="KhoaHocs">
+    <Type Name="KhoaHoc">
+      <Column Name="IdKhoaHoc" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenKhoaHoc" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Mota" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Gia" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="NgayXuatBan" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Hinh" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IdGV" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="KhoaHoc_NoiDungKH" Member="NoiDungKHs" ThisKey="IdKhoaHoc" OtherKey="IdKhoaHoc" Type="NoiDungKH" />
+      <Association Name="KhoaHoc_ChiTietDonHang" Member="ChiTietDonHangs" ThisKey="IdKhoaHoc" OtherKey="IdKhoaHoc" Type="ChiTietDonHang" />
+      <Association Name="Giangvien_KhoaHoc" Member="Giangvien" ThisKey="IdGV" OtherKey="IdGV" Type="Giangvien" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Giangvien" Member="Giangviens">
+    <Type Name="Giangvien">
+      <Column Name="IdGV" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HoTenGV" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="DCGV" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="NgaySinhGV" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Id" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Association Name="Giangvien_KhoaHoc" Member="KhoaHocs" ThisKey="IdGV" OtherKey="IdGV" Type="KhoaHoc" />
+      <Association Name="AspNetUser_Giangvien" Member="AspNetUser" ThisKey="Id" OtherKey="Id" Type="AspNetUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DonHang" Member="DonHangs">
+    <Type Name="DonHang">
+      <Column Name="madon" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="thanhtoan" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="giaohang" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="ngaydat" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="id" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Association Name="DonHang_ChiTietDonHang" Member="ChiTietDonHangs" ThisKey="madon" OtherKey="madon" Type="ChiTietDonHang" />
+      <Association Name="AspNetUser_DonHang" Member="AspNetUser" ThisKey="id" OtherKey="Id" Type="AspNetUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChiTietDonHang" Member="ChiTietDonHangs">
+    <Type Name="ChiTietDonHang">
+      <Column Name="madon" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdKhoaHoc" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="gia" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="soluong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="DonHang_ChiTietDonHang" Member="DonHang" ThisKey="madon" OtherKey="madon" Type="DonHang" IsForeignKey="true" />
+      <Association Name="KhoaHoc_ChiTietDonHang" Member="KhoaHoc" ThisKey="IdKhoaHoc" OtherKey="IdKhoaHoc" Type="KhoaHoc" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetUsers" Member="AspNetUsers">
+    <Type Name="AspNetUser">
+      <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="EmailConfirmed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordHash" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SecurityStamp" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PhoneNumberConfirmed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TwoFactorEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LockoutEndDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LockoutEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AccessFailedCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="IdLoai" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="AspNetUser_Giangvien" Member="Giangviens" ThisKey="Id" OtherKey="Id" Type="Giangvien" />
+      <Association Name="AspNetUser_DonHang" Member="DonHangs" ThisKey="Id" OtherKey="id" Type="DonHang" />
+      <Association Name="LoaiTK_AspNetUser" Member="LoaiTK" ThisKey="IdLoai" OtherKey="IdLoai" Type="LoaiTK" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

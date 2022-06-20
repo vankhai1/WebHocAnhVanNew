@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WebHocAnhVanNew.Models.KhoaHoc>
+
+@{
+    ViewBag.Title = "ListKH";
+    Layout = "~/Views/Shared/Layoutql.cshtml";
+}
+
+<h2>ListKH</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateKH")
+</p>
+@using (Html.BeginForm("ListKH","KhoaHoc"))
+{
+    <div style="text-align:center">
+        <b>Search By:</b> @Html.RadioButton("searchBy", "TenKhoaHoc")<text>AnhVan</text>
+        @Html.RadioButton("searchBy", "GiangVien")<text>GiangVien</text>
+        @Html.RadioButton("searchBy", "None")<text>None</text>
+        @Html.TextBox("Search")<input type="submit" value="Search" />
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenKhoaHoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mota)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayXuatBan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Giangvien.HoTenGV)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenKhoaHoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mota)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayXuatBan)
+            </td>
+            <td>
+
+                <img src="@item.Hinh " width="100px" height="100px" />
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Giangvien.HoTenGV)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditKH", new { id = item.IdKhoaHoc }) |
+                
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdKhoaHoc })
+            </td>
+        </tr>
+    }
+
+</table>

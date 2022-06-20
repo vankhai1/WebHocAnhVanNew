@@ -1,0 +1,13 @@
+﻿@model WebHocAnhVanNew.Models.KhoaHoc
+@{
+    ViewBag.Title = "Buy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Buy</h2>
+
+
+<br />
+<p style="font-size:24px">Bạn đã mua <strong>@Model.TenKhoaHoc</strong>với giá<strong>@Model.Gia</strong>VND</p><strong><img src="@Model.Hinh" width="260px"height="300px" /></strong></p>
+@Html.ActionLink("Noi Dung", "KhoaHoc","Home")
+
